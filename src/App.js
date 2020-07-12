@@ -50,7 +50,7 @@ function App() {
       </div>
 
       <div class="introduction">
-        <h1 class="intro">Why Audio Book?</h1>
+        <h1 class="intro text-center">Why Audio Book?</h1>
         <div class="container">
           <div class="row">
             <div class="col-md-4">
@@ -105,7 +105,7 @@ function App() {
       </div>
 
       <div class="introduction">
-        <h1 class="intro">Why Audio Book?</h1>
+        <h1 class="intro text-center">Why Audio Book?</h1>
         <p class="description-item">
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Necessitatibus at pariatur ea quis, cumque, iste laboriosam ad,
@@ -114,6 +114,9 @@ function App() {
           delectus rem quo maiores corporis veniam nobis voluptas soluta. Et
           voluptatibus modi nam quos mollitia.
         </p>
+      </div>
+      <div class="footer">
+        <div class="footer-text text-center">Made by Duong Tran</div>
       </div>
     </div>
   );

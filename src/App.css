@@ -54,3 +54,13 @@
   max-width: 750px;
   text-align: center;
 }
+
+.footer {
+  background-color: #333;
+  height: 100px;
+  padding: 2%;
+}
+
+.footer-text {
+  color: white;
+}
