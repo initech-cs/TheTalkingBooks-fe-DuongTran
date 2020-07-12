@@ -10,7 +10,6 @@ import {
   FormControl,
   Button,
   NavDropdown,
-  Jumbotron,
   Card,
 } from "react-bootstrap";
 
@@ -43,7 +42,10 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
       <div class="main-banner">
-        <img src="https://images.pexels.com/photos/3767420/pexels-photo-3767420.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" />
+        <img
+          src="https://images.pexels.com/photos/3767420/pexels-photo-3767420.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+          alt=""
+        />
         <h1 class="page-title">Welcome to audiobook</h1>
       </div>
 
@@ -95,15 +97,23 @@ function App() {
       </div>
 
       <div class="full-width-widget">
-        <img src="https://images.pexels.com/photos/4050334/pexels-photo-4050334.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" />
+        <img
+          src="https://images.pexels.com/photos/4050334/pexels-photo-4050334.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+          alt=""
+        />
         <p class="page-title">Welcome to audiobook</p>
       </div>
 
       <div class="introduction">
         <h1 class="intro">Why Audio Book?</h1>
-        <div class="container">
-          <div class="row"></div>
-        </div>
+        <p class="description-item">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Necessitatibus at pariatur ea quis, cumque, iste laboriosam ad,
+          commodi nostrum iure quas voluptate quod dolorum expedita unde laborum
+          magni eius exercitationem mollitia sunt? Est praesentium impedit
+          delectus rem quo maiores corporis veniam nobis voluptas soluta. Et
+          voluptatibus modi nam quos mollitia.
+        </p>
       </div>
     </div>
   );

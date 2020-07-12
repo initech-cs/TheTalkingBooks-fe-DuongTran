@@ -20,6 +20,7 @@
   font-weight: lighter;
   text-align: center;
 }
+
 .introduction {
   display: flex;
   flex-direction: column;
@@ -28,7 +29,7 @@
 }
 
 .intro {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .card-item {
@@ -47,4 +48,9 @@
   height: 100%;
   object-fit: cover;
   object-position: 30%;
+}
+
+.description-item {
+  max-width: 750px;
+  text-align: center;
 }
