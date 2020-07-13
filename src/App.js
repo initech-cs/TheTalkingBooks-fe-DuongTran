@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "react-bootstrap/Navbar";
 
+import { Nav, Form, FormControl, Button, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 
-import { Nav, Form, FormControl, Button, NavDropdown } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import About from "./pages/About";
 
@@ -15,12 +15,26 @@ const apiKey = process.env.REACT_APP_APIKEY;
 
 function App() {
   let [bookList, setBookList] = useState([]);
+  const fetching = async (array) => {
+    let a = array.map((e) => fetchImgFromGoogle(e.isbns[0].isbn13));
+    console.log(await Promise.all(a));
+    setBookList(await Promise.all(a));
+  };
+
+  const fetchImgFromGoogle = async (id) => {
+    let url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${id}&key=AIzaSyCnPWo4MUML7E8asN_7WHC9tsDg9AVtMoY`;
+    let data = await fetch(url);
+    let result = await data.json();
+    console.log("result", result);
+    return result.items && result.items[0];
+  };
 
   const getBookCollection = async () => {
     let url = `https://api.nytimes.com/svc/books/v3/lists.json?list=audio-fiction&api-key=${apiKey}`;
     let data = await fetch(url);
     let result = await data.json();
-    setBookList(result.results);
+
+    fetching(result.results);
     console.log(result);
   };
 
@@ -29,10 +43,11 @@ function App() {
     getBookCollection();
   }, []);
 
-  if (bookList === null) {
+  if (bookList.length === 0) {
     return (
       <div>
-        <span>Loading data...</span> <Spinner animation="border" />
+        <span>Loading data...</span>
+        <Spinner animation="border" />
       </div>
     );
   }
@@ -41,7 +56,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">Audio Books</Navbar.Brand>
+          <Navbar.Brand href="/">The Talking Books</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -85,13 +100,15 @@ function App() {
                 src="https://images.pexels.com/photos/3767420/pexels-photo-3767420.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
                 alt=""
               />
-              <h1 class="page-title text-on-image">Welcome to audiobook</h1>
+              <h1 class="page-title text-on-image">
+                Welcome to The Talking Books
+              </h1>
             </div>
             <div>
               <BookList bookList={bookList} />
-              {bookList.map((item) => {
+              {/* {bookList.map((item) => {
                 return item.book_details[0].title;
-              })}
+              })} */}
             </div>
           </Route>
         </Switch>

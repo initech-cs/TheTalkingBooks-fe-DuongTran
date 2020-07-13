@@ -1,0 +1,12 @@
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.cardItem {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
