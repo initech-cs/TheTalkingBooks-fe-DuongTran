@@ -17,7 +17,7 @@ function App() {
   let [bookList, setBookList] = useState([]);
 
   const getBookCollection = async () => {
-    let url = `https://api.nytimes.com/svc/books/v3/lists.json?list=audio-fiction&api-key=Ao7znfFiNfgRKiKJBKBRB7GgeT7yoBAa`;
+    let url = `https://api.nytimes.com/svc/books/v3/lists.json?list=audio-fiction&api-key=${apiKey}`;
     let data = await fetch(url);
     let result = await data.json();
     setBookList(result.results);
