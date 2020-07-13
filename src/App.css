@@ -1,3 +1,8 @@
+.navi-item {
+  padding: 8px;
+  /* margin-right: 20px; */
+}
+
 .main-banner {
   position: relative;
 }
@@ -10,15 +15,20 @@
   object-position: center;
 }
 
-.page-title {
+.text-on-image {
   position: absolute;
-  top: 50%;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
 
   font-weight: lighter;
   text-align: center;
+}
+
+.page-title {
+  font-size: 60px;
+  line-height: 65px;
 }
 
 .introduction {

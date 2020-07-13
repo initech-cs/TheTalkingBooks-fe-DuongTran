@@ -1,124 +1,110 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "react-bootstrap/Navbar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 
-import {
-  Nav,
-  Form,
-  FormControl,
-  Button,
-  NavDropdown,
-  Card,
-} from "react-bootstrap";
+import { Nav, Form, FormControl, Button, NavDropdown } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
+import About from "./pages/About";
+
+import BookList from "./components/BookList";
+
+const apiKey = process.env.REACT_APP_APIKEY;
 
 function App() {
-  return (
-    <div className="App">
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Audio Books</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Book Categories" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Navbar>
-      <div class="main-banner">
-        <img
-          src="https://images.pexels.com/photos/3767420/pexels-photo-3767420.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-          alt=""
-        />
-        <h1 class="page-title">Welcome to audiobook</h1>
-      </div>
+  let [bookList, setBookList] = useState([]);
 
-      <div class="introduction">
-        <h1 class="intro text-center">Why Audio Book?</h1>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <Card className="card-item">
-                <Card.Img
-                  variant="top"
-                  src="https://images.pexels.com/photos/4554234/pexels-photo-4554234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                />
-                <Card.Body>
-                  <Card.Text>Carry a book might be inconvenient.</Card.Text>
-                </Card.Body>
-              </Card>
+  const getBookCollection = async () => {
+    let url = `https://api.nytimes.com/svc/books/v3/lists.json?list=audio-fiction&api-key=Ao7znfFiNfgRKiKJBKBRB7GgeT7yoBAa`;
+    let data = await fetch(url);
+    let result = await data.json();
+    setBookList(result.results);
+    console.log(result);
+  };
+
+  useEffect(() => {
+    console.log("this is the list");
+    getBookCollection();
+  }, []);
+
+  if (bookList === null) {
+    return (
+      <div>
+        <span>Loading data...</span> <Spinner animation="border" />
+      </div>
+    );
+  }
+
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="/">Audio Books</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <div className="navi-item">
+                <Link to="/about">About</Link>
+              </div>
+              <NavDropdown title="Book Categories" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">
+                  Best-selling books
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Books of the month
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Editor's choice
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Exclusive
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Nav.Link href="#home">Sign Up</Nav.Link>
+            <Nav.Link href="#link">Sign In</Nav.Link>
+            <Nav.Link href="#link">Sign Out</Nav.Link>
+            <Form inline>
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </Navbar.Collapse>
+        </Navbar>
+
+        <Switch>
+          <Route exact path="/">
+            <div class="main-banner">
+              <img
+                src="https://images.pexels.com/photos/3767420/pexels-photo-3767420.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+                alt=""
+              />
+              <h1 class="page-title text-on-image">Welcome to audiobook</h1>
             </div>
-            <div class="col-md-4">
-              <Card className="card-item">
-                <Card.Img
-                  variant="top"
-                  src="https://images.pexels.com/photos/3764022/pexels-photo-3764022.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                />
-                <Card.Body>
-                  <Card.Text>
-                    You don’t have to read books or looking at the computer
-                    screen when reading e-books.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+            <div>
+              <BookList bookList={bookList} />
+              {bookList.map((item) => {
+                return item.book_details[0].title;
+              })}
             </div>
-            <div class="col-md-4">
-              <Card className="card-item">
-                <Card.Img
-                  variant="top"
-                  src="https://images.pexels.com/photos/4386325/pexels-photo-4386325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                />
-                <Card.Body>
-                  <Card.Text>
-                    We offer a reasonable price and you can find thousands of
-                    book audio. Choose whatever you like!
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
-          </div>
+          </Route>
+        </Switch>
+
+        <Route path="/about">
+          <About></About>
+        </Route>
+
+        <div class="footer">
+          <div class="footer-text text-center">Made by Duong Tran</div>
         </div>
       </div>
-
-      <div class="full-width-widget">
-        <img
-          src="https://images.pexels.com/photos/4050334/pexels-photo-4050334.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-          alt=""
-        />
-        <p class="page-title">Welcome to audiobook</p>
-      </div>
-
-      <div class="introduction">
-        <h1 class="intro text-center">Why Audio Book?</h1>
-        <p class="description-item">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus at pariatur ea quis, cumque, iste laboriosam ad,
-          commodi nostrum iure quas voluptate quod dolorum expedita unde laborum
-          magni eius exercitationem mollitia sunt? Est praesentium impedit
-          delectus rem quo maiores corporis veniam nobis voluptas soluta. Et
-          voluptatibus modi nam quos mollitia.
-        </p>
-      </div>
-      <div class="footer">
-        <div class="footer-text text-center">Made by Duong Tran</div>
-      </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
