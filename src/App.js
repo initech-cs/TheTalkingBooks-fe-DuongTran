@@ -22,6 +22,14 @@ function App() {
   //   setBookList(await Promise.all(a));
   // };
 
+  // const fetchImgFromGoogle = async (id) => {
+  //   let url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${id}&key=AIzaSyCnPWo4MUML7E8asN_7WHC9tsDg9AVtMoY`;
+  //   let data = await fetch(url);
+  //   let result = await data.json();
+  //   console.log("result", result);
+  //   return result.items && result.items[0];
+  // };
+
   const getBookCollection = async () => {
     let url = `https://api.nytimes.com/svc/books/v3/lists.json?list=audio-fiction&api-key=${apiKey}`;
     let data = await fetch(url);
