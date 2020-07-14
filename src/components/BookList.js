@@ -9,7 +9,7 @@ export default function BookList(props) {
   return (
     <div class="book-list">
       {props.bookList.map((item, i) => (
-        <BookCard data={props.bookList[i]} />
+        <BookCard data={item} />
       ))}
     </div>
   );

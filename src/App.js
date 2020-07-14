@@ -10,31 +10,24 @@ import Spinner from "react-bootstrap/Spinner";
 import About from "./pages/About";
 
 import BookList from "./components/BookList";
+import Details from "./pages/Details";
 
 const apiKey = process.env.REACT_APP_APIKEY;
 
 function App() {
   let [bookList, setBookList] = useState([]);
-  const fetching = async (array) => {
-    let a = array.map((e) => fetchImgFromGoogle(e.isbns[0].isbn13));
-    console.log(await Promise.all(a));
-    setBookList(await Promise.all(a));
-  };
-
-  const fetchImgFromGoogle = async (id) => {
-    let url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${id}&key=AIzaSyCnPWo4MUML7E8asN_7WHC9tsDg9AVtMoY`;
-    let data = await fetch(url);
-    let result = await data.json();
-    console.log("result", result);
-    return result.items && result.items[0];
-  };
+  // const fetching = async (array) => {
+  //   let a = array.map((e) => fetchImgFromGoogle(e.isbns[0].isbn13));
+  //   console.log(await Promise.all(a));
+  //   setBookList(await Promise.all(a));
+  // };
 
   const getBookCollection = async () => {
     let url = `https://api.nytimes.com/svc/books/v3/lists.json?list=audio-fiction&api-key=${apiKey}`;
     let data = await fetch(url);
     let result = await data.json();
-
-    fetching(result.results);
+    setBookList(result.results);
+    // fetching(result.results);
     console.log(result);
   };
 
@@ -106,17 +99,13 @@ function App() {
             </div>
             <div>
               <BookList bookList={bookList} />
-              {/* {bookList.map((item) => {
-                return item.book_details[0].title;
-              })} */}
             </div>
           </Route>
+          <Route exact path="/books/:id" component={Details} />
+          <Route path="/about">
+            <About></About>
+          </Route>
         </Switch>
-
-        <Route path="/about">
-          <About></About>
-        </Route>
-
         <div class="footer">
           <div class="footer-text text-center">Made by Duong Tran</div>
         </div>
