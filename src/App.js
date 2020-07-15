@@ -30,28 +30,28 @@ function App() {
   //   return result.items && result.items[0];
   // };
 
-  const getBookCollection = async () => {
-    let url = `https://api.nytimes.com/svc/books/v3/lists.json?list=audio-fiction&api-key=${apiKey}`;
-    let data = await fetch(url);
-    let result = await data.json();
-    setBookList(result.results);
-    // fetching(result.results);
-    console.log(result);
-  };
+  // const getBookCollection = async () => {
+  //   let url = `https://api.nytimes.com/svc/books/v3/lists.json?list=audio-fiction&api-key=${apiKey}`;
+  //   let data = await fetch(url);
+  //   let result = await data.json();
+  //   setBookList(result.results);
+  //   // fetching(result.results);
+  //   console.log(result);
+  // };
 
   useEffect(() => {
     console.log("this is the list");
-    getBookCollection();
+    // getBookCollection();
   }, []);
 
-  if (bookList.length === 0) {
-    return (
-      <div>
-        <span>Loading data...</span>
-        <Spinner animation="border" />
-      </div>
-    );
-  }
+  // if (bookList.length === 0) {
+  //   return (
+  //     <div>
+  //       <span>Loading data...</span>
+  //       <Spinner animation="border" />
+  //     </div>
+  //   );
+  // }
 
   return (
     <BrowserRouter>
@@ -106,7 +106,7 @@ function App() {
               </h1>
             </div>
             <div>
-              <BookList bookList={bookList} />
+              <BookList />
             </div>
           </Route>
           <Route exact path="/books/:id" component={Details} />
