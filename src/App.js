@@ -8,7 +8,7 @@ import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 
 import Spinner from "react-bootstrap/Spinner";
 import About from "./pages/About";
-
+import AddBook from "./pages/AddBook";
 import BookList from "./components/BookList";
 import Details from "./pages/Details";
 
@@ -109,6 +109,7 @@ function App() {
               <BookList />
             </div>
           </Route>
+          <Route exact path="/books/create" component={AddBook} />
           <Route exact path="/books/:id" component={Details} />
           <Route path="/about">
             <About></About>
