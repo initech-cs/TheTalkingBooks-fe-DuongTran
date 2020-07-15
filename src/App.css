@@ -1,6 +1,6 @@
 .navi-item {
   padding: 8px;
-  /* margin-right: 20px; */
+  margin-right: 20px;
 }
 
 .main-banner {
@@ -72,5 +72,13 @@
 }
 
 .footer-text {
+  color: white;
+}
+
+.book-genre {
+  font-size: 12px;
+  background-color: rgb(0, 196, 199);
+  border-radius: 10px;
+  padding: 2px 8px;
   color: white;
 }

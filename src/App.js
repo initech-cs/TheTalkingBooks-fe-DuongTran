@@ -64,7 +64,10 @@ function App() {
               <div className="navi-item">
                 <Link to="/about">About</Link>
               </div>
-              <NavDropdown title="Book Categories" id="basic-nav-dropdown">
+              <div className="navi-item">
+                <Link to="/books/create">Create</Link>
+              </div>
+              {/* <NavDropdown title="Book Categories" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">
                   Best-selling books
                 </NavDropdown.Item>
@@ -78,11 +81,13 @@ function App() {
                 <NavDropdown.Item href="#action/3.4">
                   Exclusive
                 </NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown> */}
             </Nav>
+
             <Nav.Link href="#home">Sign Up</Nav.Link>
             <Nav.Link href="#link">Sign In</Nav.Link>
             <Nav.Link href="#link">Sign Out</Nav.Link>
+
             <Form inline>
               <FormControl
                 type="text"
@@ -114,6 +119,9 @@ function App() {
           <Route path="/about">
             <About></About>
           </Route>
+          {/* <Route path="books/create">
+              <AddBook></AddBook>
+          </Route> */}
         </Switch>
         <div class="footer">
           <div class="footer-text text-center">Made by Duong Tran</div>
