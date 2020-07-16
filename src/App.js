@@ -19,7 +19,6 @@ const apiKey = process.env.REACT_APP_APIKEY;
 function App() {
   let [bookList, setBookList] = useState([]);
 
-
   useEffect(() => {
     console.log("this is the list");
     // getBookCollection();
@@ -65,7 +64,7 @@ function App() {
               </NavDropdown> */}
             </Nav>
 
-            <Nav.Link href="#home">Sign Up</Nav.Link>
+            <Link to="">Sign Up</Link>
             <Nav.Link href="#link">Sign In</Nav.Link>
             <Nav.Link href="#link">Sign Out</Nav.Link>
 
@@ -79,7 +78,6 @@ function App() {
             </Form>
           </Navbar.Collapse>
         </Navbar>
-
         <Switch>
           <Route exact path="/">
             <div class="main-banner">
@@ -92,6 +90,7 @@ function App() {
               </h1>
             </div>
             <div>
+
               <BookList />
             </div>
           </Route>

@@ -68,7 +68,7 @@ export default function AddBook() {
           )}
 
           <button onClick={() => addToDatabase(book)}>
-            {" "}
+
             Add book to database
           </button>
         </div>
