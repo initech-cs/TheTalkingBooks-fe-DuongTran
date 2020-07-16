@@ -1,0 +1,24 @@
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px;
+}
+.cardItem {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px;
+  text-align: center;
+}
+
+.cardItem img {
+  max-width: 100%;
+}
+
+.book-title {
+  margin-top: 10px;
+}
