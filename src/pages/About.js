@@ -9,7 +9,7 @@ export default function About() {
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <Card className="card-item">
+              <Card className="card-about">
                 <Card.Img
                   variant="top"
                   src="https://images.pexels.com/photos/4554234/pexels-photo-4554234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -20,7 +20,7 @@ export default function About() {
               </Card>
             </div>
             <div class="col-md-4">
-              <Card className="card-item">
+              <Card className="card-about">
                 <Card.Img
                   variant="top"
                   src="https://images.pexels.com/photos/3764022/pexels-photo-3764022.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
@@ -34,7 +34,7 @@ export default function About() {
               </Card>
             </div>
             <div class="col-md-4">
-              <Card className="card-item">
+              <Card className="card-about">
                 <Card.Img
                   variant="top"
                   src="https://images.pexels.com/photos/4386325/pexels-photo-4386325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
