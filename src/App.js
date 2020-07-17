@@ -80,12 +80,12 @@ function App() {
         </Navbar>
         <Switch>
           <Route exact path="/">
-            <div class="main-banner">
+            <div className="main-banner">
               <img
                 src="https://images.pexels.com/photos/3767420/pexels-photo-3767420.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
                 alt=""
               />
-              <h1 class="page-title text-on-image">
+              <h1 className="page-title text-on-image">
                 Welcome to The Talking Books
               </h1>
             </div>
@@ -104,8 +104,8 @@ function App() {
           </Route> */}
         </Switch>
         {/* <Login /> */}
-        <div class="footer">
-          <div class="footer-text text-center">Made by Duong Tran</div>
+        <div className="footer">
+          <div className="footer-text text-center">Made by Duong Tran</div>
         </div>
       </div>
     </BrowserRouter>

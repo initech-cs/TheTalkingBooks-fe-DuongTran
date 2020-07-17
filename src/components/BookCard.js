@@ -11,7 +11,7 @@ export default function BookCard(props) {
 
   if (props.data) {
     return (
-      <div class="cardItem">
+      <div className="cardItem">
         <Link
           to={{
             pathname: `/books/${props.data._id}`,
@@ -25,10 +25,10 @@ export default function BookCard(props) {
           }}
         >
           <img src={props.data.image} />
-          <h5 class="book-title">{props.data.title}</h5>
+          <h5 className="book-title">{props.data.title}</h5>
         </Link>
         <p>{props.data.authors[0]}</p>
-        <span class="book-genre">{props.data.genres[0].genre}</span>
+        <span className="book-genre">{props.data.genres[0].genre}</span>
       </div >
     );
   }

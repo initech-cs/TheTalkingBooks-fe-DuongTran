@@ -60,7 +60,7 @@ export default function AddBook() {
           <h5>{book.title}</h5>
           {book.authors && (
             <p>
-              <small>{book.authors.join(", ")}</small>
+              {book.authors.join(", ")}
             </p>
           )}
           {book.imageLinks && book.imageLinks.thumbnail && (
