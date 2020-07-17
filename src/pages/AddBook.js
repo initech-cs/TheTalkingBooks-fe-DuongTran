@@ -37,7 +37,7 @@ export default function AddBook() {
       image: (imageLinks && imageLinks.thumbnail) || "",
       averageRating: averageRating,
     };
-    postBook(body);
+    await postBook(body);
     alert("Book has been added to the collection");
   }
 

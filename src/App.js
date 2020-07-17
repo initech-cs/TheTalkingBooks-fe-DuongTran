@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "react-bootstrap/Navbar";
+import AuthService from "./services/AuthService";
 
-import { Nav, Form, FormControl, Button, NavDropdown } from "react-bootstrap";
+import {
+  Nav,
+  Form,
+  FormControl,
+  Button,
+  NavDropdown,
+  DropdownButton,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 
@@ -18,6 +26,22 @@ const apiKey = process.env.REACT_APP_APIKEY;
 
 function App() {
   let [bookList, setBookList] = useState([]);
+  const [username, setUsername] = useState(localStorage.getItem("name"));
+  const [loggedIn, setLoggedIn] = useState(
+    localStorage.getItem("token") !== null
+  );
+
+  const logout = () => {
+    AuthService.logout();
+    setLoggedIn(false);
+  };
+
+  const setLoginUser = (token, user) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("name", user);
+    setUsername(user);
+    setLoggedIn(true);
+  };
 
   useEffect(() => {
     console.log("this is the list");
@@ -65,8 +89,14 @@ function App() {
             </Nav>
 
             <Link to="">Sign Up</Link>
-            <Nav.Link href="#link">Sign In</Nav.Link>
-            <Nav.Link href="#link">Sign Out</Nav.Link>
+            <Nav.Link href="login">Sign In</Nav.Link>
+            {loggedIn ? (
+              <DropdownButton title={username}>
+                <Nav.Link onClick={() => logout()}>Sign Out</Nav.Link>
+              </DropdownButton>
+            ) : (
+              <Nav.Link href="login">account</Nav.Link>
+            )}
 
             <Form inline>
               <FormControl
@@ -90,12 +120,17 @@ function App() {
               </h1>
             </div>
             <div>
-
               <BookList />
             </div>
           </Route>
+
           <Route exact path="/books/create" component={AddBook} />
           <Route exact path="/books/:id" component={Details} />
+          <Route
+            exact
+            path="/login"
+            render={(props) => <Login {...props} setLoginUser={setLoginUser} />}
+          />
           <Route path="/about">
             <About></About>
           </Route>
