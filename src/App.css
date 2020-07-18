@@ -70,6 +70,7 @@
 .footer {
   background-color: #333;
   height: 100px;
+  width: 100%;
   padding: 2%;
 }
 
@@ -83,9 +84,4 @@
   border-radius: 10px;
   padding: 2px 8px;
   color: white;
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
 }

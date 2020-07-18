@@ -3,10 +3,11 @@ import "./AddBook.css";
 
 export default function AddBook() {
   const [books, setBooks] = useState([]);
+
   async function searchBook(e) {
     e.preventDefault();
     const title = e.target.title.value;
-    const url = `https://www.googleapis.com/books/v1/volumes?q=intitle:${title}&key=AIzaSyCnPWo4MUML7E8asN_7WHC9tsDg9AVtMoY`;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=intitle:${title}&key=${process.env.REACT_APP_googleKey}`;
     const res = await fetch(url);
     const data = await res.json();
     setBooks(data.items.map((e) => e.volumeInfo));
@@ -58,17 +59,12 @@ export default function AddBook() {
       return (
         <div class="book-search-result">
           <h5>{book.title}</h5>
-          {book.authors && (
-            <p>
-              {book.authors.join(", ")}
-            </p>
-          )}
+          {book.authors && <p>{book.authors.join(", ")}</p>}
           {book.imageLinks && book.imageLinks.thumbnail && (
             <img src={book.imageLinks.thumbnail} alt={book.title} />
           )}
 
           <button onClick={() => addToDatabase(book)}>
-
             Add book to database
           </button>
         </div>

@@ -12,16 +12,23 @@ import {
   DropdownButton,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 
-import Spinner from "react-bootstrap/Spinner";
 import About from "./pages/About";
 import AddBook from "./pages/AddBook";
+import SignUp from "./pages/SignUp";
 import BookList from "./components/BookList";
 import Details from "./pages/Details";
 
 import Login from "./pages/Login";
 
+import Spinner from "react-bootstrap/Spinner";
 const apiKey = process.env.REACT_APP_APIKEY;
 
 function App() {
@@ -31,9 +38,11 @@ function App() {
     localStorage.getItem("token") !== null
   );
 
+  let history = useHistory();
   const logout = () => {
     AuthService.logout();
     setLoggedIn(false);
+    window.location.href = "/login";
   };
 
   const setLoginUser = (token, user) => {
@@ -88,14 +97,15 @@ function App() {
               </NavDropdown> */}
             </Nav>
 
-            <Link to="">Sign Up</Link>
+            <Nav.Link href="signup">Sign Up</Nav.Link>
             <Nav.Link href="login">Sign In</Nav.Link>
+
             {loggedIn ? (
               <DropdownButton title={username}>
                 <Nav.Link onClick={() => logout()}>Sign Out</Nav.Link>
               </DropdownButton>
             ) : (
-              <Nav.Link href="login">account</Nav.Link>
+              <Nav.Link href="login"></Nav.Link>
             )}
 
             <Form inline>
@@ -125,7 +135,17 @@ function App() {
           </Route>
 
           <Route exact path="/books/create" component={AddBook} />
-          <Route exact path="/books/:id" component={Details} />
+          <Route
+            exact
+            path="/books/:id"
+            render={(props) =>
+              username ? (
+                <Details {...props} />
+              ) : (
+                <Login {...props} setLoginUser={setLoginUser} />
+              )
+            }
+          />
           <Route
             exact
             path="/login"
@@ -133,6 +153,9 @@ function App() {
           />
           <Route path="/about">
             <About></About>
+          </Route>
+          <Route path="/signup">
+            <SignUp></SignUp>
           </Route>
           {/* <Route path="books/create">
               <AddBook></AddBook>

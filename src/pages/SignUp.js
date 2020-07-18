@@ -1,49 +1,36 @@
 import React, { useState } from "react";
 // import FacebookLogin from "react-facebook-login";
 import { Form, Button } from "react-bootstrap";
-import "./Login.css";
+import "./SignUp.css";
 
-// export default function Login() {
-//   const responseFacebook = (response) => {
-//     console.log(response);
-//   };
-//   return (
-//     <div>
-//       <FacebookLogin
-//         appId="656968314900863"
-//         fields="name,email,picture"
-//         callback={responseFacebook}
-//       />
-//     </div>
-//   );
-// }
-
-export default function Login({ setLoginUser }) {
+export default function SignUp() {
+  const [name, setName] = useState([]);
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
-  console.log("part1");
 
-  const loginWithEmail = async () => {
-    const data = await fetch("http://localhost:5000/login", {
+  const signUp = async () => {
+    const data = await fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email, password: password }),
+      body: JSON.stringify({ name: name, email: email, password: password }),
     });
-    console.log("part2");
-    console.log("part3");
-    const loginUser = await data.json();
-    const user = loginUser.data.user.name;
-    const token = loginUser.data.token;
-    setLoginUser(token, user);
+    console.log("user has been created");
   };
 
   return (
-    <div className="login-page">
-      <h1>Login</h1>
+    <div>
       <Form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -67,10 +54,7 @@ export default function Login({ setLoginUser }) {
         <Form.Group controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <Button
-          variant="primary"
-          onClick={() => loginWithEmail(email, password)}
-        >
+        <Button variant="primary" onClick={() => signUp(name, email, password)}>
           Submit
         </Button>
       </Form>

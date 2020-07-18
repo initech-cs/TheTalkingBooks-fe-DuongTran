@@ -29,7 +29,7 @@ export default function BookCard(props) {
         </Link>
         <p>{props.data.authors[0]}</p>
         <span className="book-genre">{props.data.genres[0].genre}</span>
-      </div >
+      </div>
     );
   }
 }
