@@ -73,14 +73,15 @@ export default function AddBook() {
   }
 
   return (
-    <div>
+    <div className="addbook-page">
       <form onSubmit={searchBook} class="search-book">
         <label>Title:</label>
-        <br />
+
         <input
           type="text"
           name="title"
           placeholder="Enter book title to search"
+          className="search-box"
         />
       </form>
 

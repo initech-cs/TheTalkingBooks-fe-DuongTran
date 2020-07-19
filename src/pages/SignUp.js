@@ -21,7 +21,8 @@ export default function SignUp() {
   };
 
   return (
-    <div>
+    <div className="signup-page">
+      <h1>Sign Up</h1>
       <Form>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Name</Form.Label>
@@ -51,9 +52,7 @@ export default function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
+
         <Button variant="primary" onClick={() => signUp(name, email, password)}>
           Submit
         </Button>
