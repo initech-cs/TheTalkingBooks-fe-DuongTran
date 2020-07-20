@@ -18,16 +18,18 @@ const login = (username, password) => {
     })
     .then((response) => {
       if (response.data.accessToken) {
+        console.log(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", response.data.data.user);
       }
 
       return response.data;
     });
 };
 
-const logout = () => {
-  localStorage.removeItem("name");
+const logout = ({ setLogin }) => {
   localStorage.removeItem("token");
+  setLogin({ loaded: true, isLoggedIn: false });
 };
 
 const getCurrentUser = () => {

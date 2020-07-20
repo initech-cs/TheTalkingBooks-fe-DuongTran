@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import FacebookLogin from "react-facebook-login";
 import { Form, Button } from "react-bootstrap";
 import "./Login.css";
+import { useHistory } from "react-router-dom";
 
 // export default function Login() {
 //   const responseFacebook = (response) => {
@@ -18,11 +19,10 @@ import "./Login.css";
 //   );
 // }
 
-export default function Login({ setLoginUser }) {
-  const [email, setEmail] = useState([]);
-  const [password, setPassword] = useState([]);
-  console.log("part1");
-
+export default function Login({ setLogin }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
   const loginWithEmail = async () => {
     const data = await fetch("http://localhost:5000/login", {
       method: "POST",
@@ -32,12 +32,16 @@ export default function Login({ setLoginUser }) {
       },
       body: JSON.stringify({ email: email, password: password }),
     });
-    console.log("part2");
-    console.log("part3");
-    const loginUser = await data.json();
-    const user = loginUser.data.user.name;
-    const token = loginUser.data.token;
-    setLoginUser(token, user);
+    const dt = await data.json();
+    if (dt.status === "success") {
+      const user = dt.data.user;
+      const token = dt.data.token;
+      localStorage.setItem("token", token);
+      setLogin(user);
+      history.push("/");
+    } else {
+      console.log("fail to login");
+    }
   };
 
   return (

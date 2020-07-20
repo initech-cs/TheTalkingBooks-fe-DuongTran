@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "react-bootstrap/Navbar";
 import AuthService from "./services/AuthService";
-
+import AdminRoute from "./auth/AdminRoute";
+import NormalRoute from "./auth/NormalRoute";
 import {
   Nav,
   Form,
@@ -18,6 +19,7 @@ import {
   Route,
   Switch,
   useHistory,
+  Redirect,
 } from "react-router-dom";
 
 import About from "./pages/About";
@@ -33,27 +35,57 @@ const apiKey = process.env.REACT_APP_APIKEY;
 
 function App() {
   let [bookList, setBookList] = useState([]);
-  const [username, setUsername] = useState(localStorage.getItem("name"));
-  const [loggedIn, setLoggedIn] = useState(
-    localStorage.getItem("token") !== null
-  );
+  const [user, setUser] = useState({
+    loaded: false,
+    user: null,
+    isLoggedIn: false,
+  });
 
   let history = useHistory();
   const logout = () => {
-    AuthService.logout();
-    setLoggedIn(false);
+    AuthService.logout({ setLogin });
+    // setLoggedIn(false);
     window.location.href = "/login";
   };
 
-  const setLoginUser = (token, user) => {
-    localStorage.setItem("token", token);
-    localStorage.setItem("name", user);
-    setUsername(user);
-    setLoggedIn(true);
+  const setLogin = (user) => {
+    setUser({ loaded: true, isLoggedIn: true, user: user });
   };
 
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setUser({ isLoggedIn: false, loaded: true });
+
+      return;
+    }
+    const res = await fetch("http://localhost:5000/users/me", {
+      method: "POST",
+      headers: {
+        "content-type": `application/json`,
+      },
+      body: JSON.stringify({ token }),
+    });
+
+    if (res.status === 200) {
+      const u = await res.json();
+      setLogin(u);
+    } else {
+      alert("not logged in");
+      localStorage.removeItem("token");
+      setUser({ isLoggedIn: false, loaded: true });
+    }
+  };
+  // const ProtectedRoute = (props) => {
+  //   if (user.isAuthenticated === true) {
+  //     return <Route {...props} />;
+  //   } else {
+  //     return <Redirect to="/login" />;
+  //   }
+  // };
   useEffect(() => {
     console.log("this is the list");
+    fetchUser();
     // getBookCollection();
   }, []);
 
@@ -65,7 +97,8 @@ function App() {
   //     </div>
   //   );
   // }
-
+  console.log(user);
+  if (!user.loaded) return <h1>loading</h1>;
   return (
     <BrowserRouter>
       <div className="App">
@@ -74,12 +107,15 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <div className="navi-item">
-                <Link to="/about">About</Link>
-              </div>
-              <div className="navi-item">
-                <Link to="/books/create">Create</Link>
-              </div>
+              <Link to="/about" className="navi-item">
+                About
+              </Link>
+
+              <Link to="/books/create" className="navi-item">
+                Create
+              </Link>
+              {/* <Link to="/create">Create</Link> */}
+
               {/* <NavDropdown title="Book Categories" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">
                   Best-selling books
@@ -97,15 +133,15 @@ function App() {
               </NavDropdown> */}
             </Nav>
 
-            <Nav.Link href="signup">Sign Up</Nav.Link>
-            <Nav.Link href="login">Sign In</Nav.Link>
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/login">Sign In</Link>
 
-            {loggedIn ? (
-              <DropdownButton title={username}>
-                <Nav.Link onClick={() => logout()}>Sign Out</Nav.Link>
+            {user.isLoggedIn ? (
+              <DropdownButton title={user.name}>
+                <Link onClick={() => logout()}>Sign Out</Link>
               </DropdownButton>
             ) : (
-              <Nav.Link href="login"></Nav.Link>
+              <Link to="/login"></Link>
             )}
 
             <Form inline>
@@ -134,22 +170,17 @@ function App() {
             </div>
           </Route>
 
-          <Route exact path="/books/create" component={AddBook} />
-          <Route
+          <AdminRoute
+            user={user}
             exact
-            path="/books/:id"
-            render={(props) =>
-              username ? (
-                <Details {...props} />
-              ) : (
-                <Login {...props} setLoginUser={setLoginUser} />
-              )
-            }
+            path="/books/create"
+            component={AddBook}
           />
+          <NormalRoute exact path="/books/:id" component={Details} />
           <Route
             exact
             path="/login"
-            render={(props) => <Login {...props} setLoginUser={setLoginUser} />}
+            render={(props) => <Login {...props} setLogin={setLogin} />}
           />
           <Route path="/about">
             <About></About>

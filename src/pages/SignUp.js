@@ -17,7 +17,11 @@ export default function SignUp() {
       },
       body: JSON.stringify({ name: name, email: email, password: password }),
     });
-    console.log("user has been created");
+    if (data.status === 201) {
+      console.log("user has been created");
+    } else {
+      console.log("cannot register");
+    }
   };
 
   return (

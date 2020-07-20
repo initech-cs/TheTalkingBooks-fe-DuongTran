@@ -1,8 +1,18 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 import "./AddBook.css";
 
 export default function AddBook() {
   const [books, setBooks] = useState([]);
+  const [admin, setAdmin] = useState([]);
+
+  const checkAdmin = async () => {
+    const data = await fetch("http://localhost:5000/users");
+    const result = await data.json();
+
+    console.log("checkAdmin is called", result);
+    // console.log("result.data.role", result1);
+  };
 
   async function searchBook(e) {
     e.preventDefault();
@@ -64,28 +74,36 @@ export default function AddBook() {
             <img src={book.imageLinks.thumbnail} alt={book.title} />
           )}
 
-          <button onClick={() => addToDatabase(book)}>
+          <Button className="add-to-db" onClick={() => addToDatabase(book)}>
             Add book to database
-          </button>
+          </Button>
         </div>
       );
     });
   }
 
   return (
-    <div className="addbook-page">
-      <form onSubmit={searchBook} class="search-book">
-        <label>Title:</label>
+    <div>
+      {admin ? (
+        <div className="addbook-page">
+          <form onSubmit={searchBook} class="search-book">
+            <label>Title:</label>
 
-        <input
-          type="text"
-          name="title"
-          placeholder="Enter book title to search"
-          className="search-box"
-        />
-      </form>
+            <input
+              type="text"
+              name="title"
+              placeholder="Enter book title to search"
+              className="search-box"
+            />
+          </form>
 
-      {renderBooks(books)}
+          {/* <button onClick={() => checkAdmin()}>Check admin</button> */}
+          <div></div>
+          {renderBooks(books)}
+        </div>
+      ) : (
+        <div>You're not and admin</div>
+      )}
     </div>
   );
 }
