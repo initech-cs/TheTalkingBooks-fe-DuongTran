@@ -176,7 +176,12 @@ function App() {
             path="/books/create"
             component={AddBook}
           />
-          <NormalRoute exact path="/books/:id" component={Details} />
+          <NormalRoute
+            exact
+            user={user}
+            path="/books/:id"
+            component={Details}
+          />
           <Route
             exact
             path="/login"
