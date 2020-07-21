@@ -1,6 +1,6 @@
 import React from "react";
 import "./Details.css";
-import ReactAudioPlayer from 'react-audio-player'
+import ReactAudioPlayer from "react-audio-player";
 
 export default function Details(props) {
   console.log(props);
@@ -29,10 +29,19 @@ export default function Details(props) {
                   </ul></div> */}
                   <p>{props.location.authors}</p>
 
-                  <p>Page Count: {props.location.pageCount}</p>
-                  <p>Rating: {props.location.averageRating}</p>
-                  <p>Published Date: {props.location.publishedDate}</p>
-                  <ReactAudioPlayer src="http://bcitcomp.ca/1950/media/house-a-square.mp3" controls />
+                  <p className="detail-book">
+                    Page Count: {props.location.pageCount}
+                  </p>
+                  <p className="detail-book">
+                    Rating: {props.location.averageRating}
+                  </p>
+                  <p className="detail-book">
+                    Published Date: {props.location.publishedDate}
+                  </p>
+                  <ReactAudioPlayer
+                    src="http://bcitcomp.ca/1950/media/house-a-square.mp3"
+                    controls
+                  />
                 </div>
               </div>
             </div>

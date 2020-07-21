@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import "./AddBook.css";
 
-export default function AddBook() {
+export default function AddBook(props) {
+  // console.log("xxxxxxx", props);
   const [books, setBooks] = useState([]);
   const [admin, setAdmin] = useState([]);
 
@@ -47,6 +48,7 @@ export default function AddBook() {
         : "ISBN Unknown",
       image: (imageLinks && imageLinks.thumbnail) || "",
       averageRating: averageRating,
+      token: localStorage.getItem("token"),
     };
     await postBook(body);
     alert("Book has been added to the collection");

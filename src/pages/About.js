@@ -62,12 +62,9 @@ export default function About() {
       <div class="introduction">
         <h1 class="intro text-center">How to become a member?</h1>
         <p class="description-item">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus at pariatur ea quis, cumque, iste laboriosam ad,
-          commodi nostrum iure quas voluptate quod dolorum expedita unde laborum
-          magni eius exercitationem mollitia sunt? Est praesentium impedit
-          delectus rem quo maiores corporis veniam nobis voluptas soluta. Et
-          voluptatibus modi nam quos mollitia.
+          You just have to pay 100.000VND or 5USD a year to enjoy our talking
+          books. Each month the admin will suggest 5 books so you can vote for
+          your favorite books and we will find those audio books for you.
         </p>
       </div>
     </div>

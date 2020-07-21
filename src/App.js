@@ -133,25 +133,34 @@ function App() {
               </NavDropdown> */}
             </Nav>
 
-            <Link to="/signup">Sign Up</Link>
-            <Link to="/login">Sign In</Link>
+            <Link to="/signup" className="navi-item">
+              Sign Up
+            </Link>
+            <Link to="/login" className="navi-item">
+              Sign In
+            </Link>
 
             {user.isLoggedIn ? (
-              <DropdownButton title={user.name}>
-                <Link onClick={() => logout()}>Sign Out</Link>
+              <DropdownButton
+                title={user.name}
+                className="navi-item add-right-space"
+              >
+                <Link onClick={() => logout()} className="navi-item">
+                  Sign Out
+                </Link>
               </DropdownButton>
             ) : (
               <Link to="/login"></Link>
             )}
 
-            <Form inline>
+            {/* <Form inline>
               <FormControl
                 type="text"
                 placeholder="Search"
                 className="mr-sm-2"
               />
               <Button variant="outline-success">Search</Button>
-            </Form>
+            </Form> */}
           </Navbar.Collapse>
         </Navbar>
         <Switch>

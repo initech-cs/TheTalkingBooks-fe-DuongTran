@@ -19,7 +19,7 @@ export default function SignUp() {
     });
     if (data.status === 201) {
       console.log("user has been created");
-      alert("user has been created");
+      alert("User has been created, now you can login with this account");
     } else {
       console.log("cannot register");
     }
