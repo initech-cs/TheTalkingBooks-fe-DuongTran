@@ -59,6 +59,7 @@ function App() {
 
       return;
     }
+
     const res = await fetch("http://localhost:5000/users/me", {
       method: "POST",
       headers: {

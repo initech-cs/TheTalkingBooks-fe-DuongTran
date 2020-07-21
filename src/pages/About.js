@@ -64,7 +64,8 @@ export default function About() {
         <p class="description-item">
           You just have to pay 100.000VND or 5USD a year to enjoy our talking
           books. Each month the admin will suggest 5 books so you can vote for
-          your favorite books and we will find those audio books for you.
+          your favorite books and we will find those audio books for you. Happy
+          Listening!
         </p>
       </div>
     </div>
