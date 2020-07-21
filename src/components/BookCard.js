@@ -28,8 +28,11 @@ export default function BookCard(props) {
           <img src={props.data.image} />
           <h5 className="book-title">{props.data.title}</h5>
         </Link>
+
         <p>{props.data.authors[0]}</p>
-        <span className="book-genre">{props.data.genres[0].genre}</span>
+        <span className="book-genre">
+          {props.data.genres.length > 0 ? props.data.genres[0].genre : null}
+        </span>
       </div>
     );
   }
