@@ -22,6 +22,7 @@ export default function BookCard(props) {
             publishedDate: props.data.publishedDate,
             averageRating: props.data.averageRating,
             pageCount: props.data.pageCount,
+            audioUrl: props.data.audioUrl,
           }}
         >
           <img src={props.data.image} />

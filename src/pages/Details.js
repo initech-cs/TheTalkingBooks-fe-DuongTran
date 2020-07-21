@@ -1,13 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Details.css";
 import ReactAudioPlayer from "react-audio-player";
-
+import { useParams } from "react-router-dom";
 export default function Details(props) {
+  const [book, setBook] = useState(null);
   console.log(props);
   // if (props.data == null) {
   //   return <div>no data...</div>;
   // }
   //
+  const id = useParams().id;
+  console.log(id);
+  useEffect(() => {
+    async function fetchBook() {
+      const res = await fetch(`http://localhost:5000/books/${id}`);
+      const data = await res.json();
+      console.log(data);
+      setBook(data.data);
+    }
+    fetchBook();
+  }, []);
+
+  const editAudio = async (e) => {
+    e.preventDefault();
+    const res = await fetch(`http://localhost:5000/books/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": `application/json`,
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem("token"),
+        audioUrl: e.target.audioURL.value,
+      }),
+    });
+    if (res.status === 200) {
+      const dt = await res.json();
+      setBook(dt.data);
+    } else {
+      alert("cannot edit book");
+    }
+  };
+  console.log(book);
+  if (!book) return <h1>loading</h1>;
   return (
     <div class="detail-page">
       {/* <h3>Details about the book:</h3> */}
@@ -16,32 +50,51 @@ export default function Details(props) {
           <div class="row ">
             <div class="detail-part">
               <div class="col-md-3">
-                <img src={props.location.image} alt="no image" />
+                <img src={book.image} alt="no image" />
               </div>
               <div class="col-md-9">
                 <div class="detail-of-a-book">
-                  <h4>{props.location.title}</h4>
+                  <h4>{book.title}</h4>
 
                   {/* <div><ul>
-                    {props.location.authors.map(item => {
+                    {book.authors.map(item => {
                       return (<li>{item}</li>)
                     })}
                   </ul></div> */}
-                  <p>{props.location.authors}</p>
+                  <p>{book.authors}</p>
 
+                  <p className="detail-book">Page Count: {book.pageCount}</p>
+                  <p className="detail-book">Rating: {book.averageRating}</p>
                   <p className="detail-book">
-                    Page Count: {props.location.pageCount}
+                    Published Date: {book.publishedDate}
                   </p>
-                  <p className="detail-book">
-                    Rating: {props.location.averageRating}
-                  </p>
-                  <p className="detail-book">
-                    Published Date: {props.location.publishedDate}
-                  </p>
-                  <ReactAudioPlayer
-                    src="http://bcitcomp.ca/1950/media/house-a-square.mp3"
-                    controls
-                  />
+                  {book.audioUrl ? (
+                    <ReactAudioPlayer src={book.audioUrl} controls />
+                  ) : (
+                    <div>no audio found</div>
+                  )}
+                  {props.user &&
+                  props.user.user &&
+                  props.user.user.role === "host" ? (
+                    <form
+                      onSubmit={(e) => editAudio(e)}
+                      onChange={(e) =>
+                        setBook({ ...book, audioUrl: e.target.value })
+                      }
+                    >
+                      <input
+                        type="text"
+                        name="audioURL"
+                        value={book.audioUrl}
+                        className="audio-box"
+                      ></input>
+                      <button className="btn btn-primary" type="submit">
+                        Edit Audio URL
+                      </button>
+                    </form>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
               </div>
             </div>
@@ -52,7 +105,7 @@ export default function Details(props) {
         <div class="row">
           <div class="col-md-12">
             <div class="book-description">
-              <div>Description: {props.location.description}</div>
+              <div>Description: {book.description}</div>
             </div>
           </div>
         </div>

@@ -22,3 +22,9 @@
 .detail-book {
   font-size: 14px;
 }
+
+.audio-box {
+  padding: 5px;
+  top: 5px;
+  margin-right: 10px;
+}
