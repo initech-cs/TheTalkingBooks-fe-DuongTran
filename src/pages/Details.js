@@ -82,15 +82,13 @@ export default function Details(props) {
                         setBook({ ...book, audioUrl: e.target.value })
                       }
                     >
+                      <p>Insert an MP3 file to edit/play the audio</p>
                       <input
                         type="text"
                         name="audioURL"
                         value={book.audioUrl}
                         className="audio-box"
                       ></input>
-                      <button className="btn btn-primary" type="submit">
-                        Edit Audio URL
-                      </button>
                     </form>
                   ) : (
                     <div></div>
