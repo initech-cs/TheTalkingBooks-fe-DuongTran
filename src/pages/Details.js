@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Details.css";
 import ReactAudioPlayer from "react-audio-player";
 import { useParams } from "react-router-dom";
+import { BACKEND_URL } from "../app.constants";
+
 export default function Details(props) {
   const [book, setBook] = useState(null);
   console.log(props);
@@ -13,7 +15,7 @@ export default function Details(props) {
   console.log(id);
   useEffect(() => {
     async function fetchBook() {
-      const res = await fetch(`http://localhost:5000/books/${id}`);
+      const res = await fetch(`${BACKEND_URL}/books/${id}`);
       const data = await res.json();
       console.log(data);
       setBook(data.data);
@@ -23,7 +25,7 @@ export default function Details(props) {
 
   const editAudio = async (e) => {
     e.preventDefault();
-    const res = await fetch(`http://localhost:5000/books/${id}`, {
+    const res = await fetch(`${BACKEND_URL}/books/${id}`, {
       method: "PUT",
       headers: {
         "content-type": `application/json`,

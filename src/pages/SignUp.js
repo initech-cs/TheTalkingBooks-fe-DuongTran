@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import FacebookLogin from "react-facebook-login";
 import { Form, Button } from "react-bootstrap";
 import "./SignUp.css";
+import { BACKEND_URL } from "../app.constants";
 
 export default function SignUp() {
   const [name, setName] = useState([]);
@@ -9,7 +10,7 @@ export default function SignUp() {
   const [password, setPassword] = useState([]);
 
   const signUp = async () => {
-    const data = await fetch("http://localhost:5000/users", {
+    const data = await fetch(`${BACKEND_URL}/users`, {
       method: "POST",
       headers: {
         Accept: "application/json",

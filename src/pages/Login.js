@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./Login.css";
 import { useHistory } from "react-router-dom";
+import { BACKEND_URL } from "../app.constants";
 
 // export default function Login() {
 //   const responseFacebook = (response) => {
@@ -24,7 +25,7 @@ export default function Login({ setLogin }) {
   const [password, setPassword] = useState("");
   const history = useHistory();
   const loginWithEmail = async () => {
-    const data = await fetch("http://localhost:5000/login", {
+    const data = await fetch(`${BACKEND_URL}/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",

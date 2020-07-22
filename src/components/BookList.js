@@ -2,13 +2,13 @@ import React from "react";
 import BookCard from "./BookCard";
 import "./Book.css";
 import { useState, useEffect } from "react";
-
+import { BACKEND_URL } from "../app.constants";
 export default function BookList() {
   const [bookList, setbookList] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const data = await fetch("http://localhost:5000/books");
+      const data = await fetch(`${BACKEND_URL}/books`);
       const items = await data.json();
       setbookList(items.data);
       console.log(items.data);

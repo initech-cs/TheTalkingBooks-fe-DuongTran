@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import "./AddBook.css";
+import { BACKEND_URL } from "../app.constants";
 
 export default function AddBook(props) {
   // console.log("xxxxxxx", props);
@@ -8,7 +9,7 @@ export default function AddBook(props) {
   const [admin, setAdmin] = useState([]);
 
   const checkAdmin = async () => {
-    const data = await fetch("http://localhost:5000/users");
+    const data = await fetch(`${BACKEND_URL}/users`);
     const result = await data.json();
 
     console.log("checkAdmin is called", result);
@@ -55,7 +56,7 @@ export default function AddBook(props) {
   }
 
   async function postBook(body) {
-    const res = await fetch("http://localhost:5000/books", {
+    const res = await fetch(`${BACKEND_URL}/books`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

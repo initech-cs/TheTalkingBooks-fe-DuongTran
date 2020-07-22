@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import AuthService from "./services/AuthService";
 import AdminRoute from "./auth/AdminRoute";
 import NormalRoute from "./auth/NormalRoute";
+
 import {
   Nav,
   Form,
@@ -29,6 +30,7 @@ import BookList from "./components/BookList";
 import Details from "./pages/Details";
 
 import Login from "./pages/Login";
+import { BACKEND_URL } from "./app.constants";
 
 import Spinner from "react-bootstrap/Spinner";
 const apiKey = process.env.REACT_APP_APIKEY;
@@ -59,7 +61,7 @@ function App() {
 
       return;
     }
-    const res = await fetch("http://localhost:5000/users/me", {
+    const res = await fetch(`${BACKEND_URL}/users/me`, {
       method: "POST",
       headers: {
         "content-type": `application/json`,
