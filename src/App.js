@@ -60,7 +60,7 @@ function App() {
       return;
     }
 
-    const res = await fetch("http://localhost:5000/users/me", {
+    const res = await fetch(process.env.REACT_APP_SERVER + "/users/me", {
       method: "POST",
       headers: {
         "content-type": `application/json`,
