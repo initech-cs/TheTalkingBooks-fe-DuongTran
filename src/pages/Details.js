@@ -13,7 +13,7 @@ export default function Details(props) {
   console.log(id);
   useEffect(() => {
     async function fetchBook() {
-      const res = await fetch(`http://localhost:5000/books/${id}`);
+      const res = await fetch(process.env.REACT_APP_SERVER + `/books/${id}`);
       const data = await res.json();
       console.log(data);
       setBook(data.data);
@@ -23,7 +23,7 @@ export default function Details(props) {
 
   const editAudio = async (e) => {
     e.preventDefault();
-    const res = await fetch(`http://localhost:5000/books/${id}`, {
+    const res = await fetch(process.env.REACT_APP_SERVER + `/books/${id}`, {
       method: "PUT",
       headers: {
         "content-type": `application/json`,

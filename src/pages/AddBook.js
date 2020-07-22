@@ -8,7 +8,7 @@ export default function AddBook(props) {
   const [admin, setAdmin] = useState([]);
 
   const checkAdmin = async () => {
-    const data = await fetch("http://localhost:5000/users");
+    const data = await fetch(process.env.REACT_APP_SERVER + "/users");
     const result = await data.json();
 
     console.log("checkAdmin is called", result);
@@ -55,7 +55,7 @@ export default function AddBook(props) {
   }
 
   async function postBook(body) {
-    const res = await fetch("http://localhost:5000/books", {
+    const res = await fetch(process.env.REACT_APP_SERVER + "/books", {
       method: "POST",
       headers: {
         "content-type": "application/json",

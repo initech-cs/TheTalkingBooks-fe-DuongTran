@@ -24,7 +24,7 @@ export default function Login({ setLogin }) {
   const [password, setPassword] = useState("");
   const history = useHistory();
   const loginWithEmail = async () => {
-    const data = await fetch("http://localhost:5000/login", {
+    const data = await fetch(process.env.REACT_APP_SERVER + "/login", {
       method: "POST",
       headers: {
         Accept: "application/json",

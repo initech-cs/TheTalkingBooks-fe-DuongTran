@@ -9,7 +9,7 @@ export default function SignUp() {
   const [password, setPassword] = useState([]);
 
   const signUp = async () => {
-    const data = await fetch("http://localhost:5000/users", {
+    const data = await fetch(process.env.REACT_APP_SERVER + "/users", {
       method: "POST",
       headers: {
         Accept: "application/json",
