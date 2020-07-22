@@ -46,6 +46,7 @@ function App() {
     AuthService.logout({ setLogin });
     // setLoggedIn(false);
     window.location.href = "/login";
+    alert("You has been logged out");
   };
 
   const setLogin = (user) => {

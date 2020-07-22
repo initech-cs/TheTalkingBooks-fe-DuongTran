@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import FacebookLogin from "react-facebook-login";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row } from "react-bootstrap";
 import "./Login.css";
 import { useHistory } from "react-router-dom";
 
@@ -47,35 +47,40 @@ export default function Login({ setLogin }) {
   return (
     <div className="login-page">
       <h1>Login</h1>
-      <Form>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
+      <p>Please log in to see the detail page of our books</p>
+      <Container>
+        <Row>
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
 
-        <Button
-          variant="primary"
-          onClick={() => loginWithEmail(email, password)}
-        >
-          Submit
-        </Button>
-      </Form>
+            <Button
+              variant="primary"
+              onClick={() => loginWithEmail(email, password)}
+            >
+              Submit
+            </Button>
+          </Form>
+        </Row>
+      </Container>
     </div>
   );
 }

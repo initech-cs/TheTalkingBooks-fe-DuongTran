@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import FacebookLogin from "react-facebook-login";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row } from "react-bootstrap";
 import "./SignUp.css";
 
 export default function SignUp() {
@@ -28,40 +28,47 @@ export default function SignUp() {
   return (
     <div className="signup-page">
       <h1>Sign Up</h1>
-      <Form>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter name"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
+      <Container>
+        <Row>
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter name"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
 
-        <Button variant="primary" onClick={() => signUp(name, email, password)}>
-          Submit
-        </Button>
-      </Form>
+            <Button
+              variant="primary"
+              onClick={() => signUp(name, email, password)}
+            >
+              Submit
+            </Button>
+          </Form>
+        </Row>
+      </Container>
     </div>
   );
 }
